@@ -14,7 +14,7 @@ import (
 type lineRequestResponse struct {
 	Line    string   `json:"line"`
 	Title   string   `json:"title"`
-	Choices []string `json:"songs"`
+	Choices []string `json:"choices"`
 }
 
 func getLine(w http.ResponseWriter, r *http.Request) {
