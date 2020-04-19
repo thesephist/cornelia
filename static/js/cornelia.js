@@ -7,6 +7,15 @@ const LOADED = 0,
 
 const ANSWER_DELAY = 1200; // ms
 
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
+}
+
 function Loader() {
     return jdom`<div class="loader"></div>`;
 }
@@ -17,6 +26,7 @@ class App extends Component {
         this.state = LOADED;
 
         this.prompt = null;
+        this.choices = []; // used for determined shuffle on prompt load
         this.showAnswer = false;
 
         this.reset();
@@ -83,11 +93,13 @@ class App extends Component {
 
     async next() {
         this.prompt = null;
+        this.choices = [];
         this.showAnswer = false;
         this.render();
 
         const resp = await fetch('/line');
         this.prompt = await resp.json();
+        this.choices = shuffle(this.prompt.choices.concat(this.prompt.title));
         this.render();
     }
 
@@ -146,7 +158,6 @@ class App extends Component {
         const {
             line,
             title,
-            choices,
         } = this.prompt;
 
         const Choice = choiceTitle => {
@@ -164,12 +175,11 @@ class App extends Component {
             </div>`;
         }
 
-        const allChoices = choices.concat(title);
         return jdom`<div class="state--playing">
             ${Scoreboard()}
             <div class="lyric">${line}</div>
             <div class="choices">
-                ${allChoices.map(t => Choice(t))}
+                ${this.choices.map(t => Choice(t))}
                 <div class="aux">
                     <button class="block startOverButton"
                         onclick="${evt => {

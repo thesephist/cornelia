@@ -38,13 +38,14 @@ func randomSong() song {
 func randomUniqueSongs(existing song, n int) []song {
 	selection := []song{existing}
 
+chooser:
 	for len(selection) < n+1 {
 		pick := randomSong()
 		for _, selected := range selection {
 			// NOTE: assume that if title is equal, songs are the same,
 			// which is safe.
 			if pick.title == selected.title {
-				break
+				continue chooser
 			}
 		}
 
