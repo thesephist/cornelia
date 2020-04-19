@@ -81,9 +81,10 @@ func mustLoadSongs() {
 			log.Fatal(err)
 		}
 
+		lines := strings.Split(string(lyrics), "\n")
 		songs = append(songs, song{
 			title: strings.Replace(name, ".txt", "", 1),
-			lines: strings.Split(string(lyrics), "\n"),
+			lines: lines[:len(lines)-1],
 		})
 	}
 
