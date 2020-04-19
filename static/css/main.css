@@ -2,3 +2,13 @@ html,
 body {
     margin: 0;
 }
+
+body {
+    --block-accent-color: #da86d2;
+}
+
+body,
+input,
+button {
+    font-family: 'IBM Plex Mono', monospace;
+}

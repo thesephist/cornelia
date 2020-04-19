@@ -73,7 +73,7 @@ class App extends Component {
         } = this.prompt;
 
         const Scoreboard = () => {
-            return jdom`<div class="scoreboard">
+            return jdom`<div class="scoreboard accented block">
                 <span>${this.totalCorrect}</span>
                 /
                 <span>${this.totalPlayed}</span>
@@ -81,7 +81,7 @@ class App extends Component {
         }
 
         const Choice = choiceTitle => {
-            return jdom`<div class="choice"
+            return jdom`<div class="choice block"
                 onclick="${evt => {
                     if (choiceTitle === title) {
                         this.correct();
