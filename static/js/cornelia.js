@@ -5,7 +5,7 @@ const {
 const LOADED = 0,
     PLAYING = 1;
 
-const ANSWER_DELAY = 1250; // ms
+const ANSWER_DELAY = 1200; // ms
 
 function Loader() {
     return jdom`<div class="loader"></div>`;
@@ -22,6 +22,35 @@ class App extends Component {
         this.reset();
     }
 
+    savePlayState() {
+        window.localStorage.setItem('playState', JSON.stringify({
+            sc: this.streakCorrect,
+            tc: this.totalCorrect,
+            tp: this.totalPlayed,
+        }));
+    }
+
+    restorePlayState() {
+        const playStateString = window.localStorage.getItem('playState');
+        if (playStateString === null) {
+            return;
+        }
+
+        try {
+            const playState = JSON.parse(playStateString);
+            this.streakCorrect = playState.sc;
+            this.totalCorrect = playState.tc
+            this.totalPlayed = playState.tp;
+        } catch (e) {
+            console.error(e);
+            this.resetPlayState();
+        }
+    }
+
+    resetPlayState() {
+        window.localStorage.clear();
+    }
+
     reset() {
         this.streakCorrect = 0;
         this.totalCorrect = 0;
@@ -33,6 +62,7 @@ class App extends Component {
         this.totalCorrect ++;
         this.totalPlayed ++;
         this.showCorrectAnswer();
+        this.savePlayState();
 
         setTimeout(this.next.bind(this), ANSWER_DELAY);
     }
@@ -40,8 +70,9 @@ class App extends Component {
     incorrect() {
         this.streakCorrect = 0;
         this.totalPlayed ++;
-
         this.showCorrectAnswer();
+        this.savePlayState();
+
         setTimeout(this.next.bind(this), ANSWER_DELAY);
     }
 
@@ -63,14 +94,25 @@ class App extends Component {
     compose() {
         if (this.state === LOADED) {
             return jdom`<div class="state--loaded">
-                <h1>1989.style</h1>
-                <p>Guess the song that contains the given line from a song by Taylor Swift.</p>
-                <button
-                    class="block startButton"
+                <a href="/">
+                    <h1>1989.style</h1>
+                </a>
+                <p>Guess the correct Taylor Swift song from a line from the track!</p>
+                <button class="block startButton"
                     onclick="${evt => {
-                    this.state = PLAYING;
-                    this.next();
-                }}">Start</button>
+                        this.state = PLAYING;
+                        this.restorePlayState();
+
+                        this.next();
+                    }}">🎤 Start!</button>
+                <p>
+                    This project is <a href="https://github.com/thesephist/cornelia" target="_blank">open source</a>
+                    and pulls from over 121 of Taylor Swift's singles, collaborations, and other chart-topping songs
+                    across her amazing songwriting history.
+                </p>
+                <p class="right-align">
+                    a project by <a href="https://thesephist.com" target="_blank">linus</a>
+                </p>
             </div>`;
         }
 
@@ -133,13 +175,14 @@ class App extends Component {
                     <button class="block startOverButton"
                         onclick="${evt => {
                             if (window.confirm('Restart quiz? You\'ll lose your progress.')) {
+                                this.resetPlayState();
                                 location.reload()
                             }
                         }}">
                         Start over
                     </button>
                     <p>
-                    a project by <a href="https://thesephist.com">linus</a>
+                        a project by <a href="https://thesephist.com" target="_blank">linus</a>
                     </p>
                 </div>
             </div>
