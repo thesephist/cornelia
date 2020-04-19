@@ -18,15 +18,18 @@ type lineRequestResponse struct {
 }
 
 func getLine(w http.ResponseWriter, r *http.Request) {
+	log.Println("New line request!")
+
 	song := randomSong()
+	choices := randomUniqueSongs(song, 3)
+
 	resp := lineRequestResponse{
 		Line:  song.randomLine(),
 		Title: song.title,
 		Choices: []string{
-			// TODO: avoid duplications
-			randomSong().title,
-			randomSong().title,
-			randomSong().title,
+			choices[0].title,
+			choices[1].title,
+			choices[2].title,
 		},
 	}
 
@@ -40,6 +43,8 @@ func getLine(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
+	log.Println("New visit!")
+
 	indexFile, err := os.Open("./static/index.html")
 	if err != nil {
 		io.WriteString(w, "error reading index")

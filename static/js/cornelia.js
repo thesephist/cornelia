@@ -119,7 +119,6 @@ class App extends Component {
         const Scoreboard = () => {
             return jdom`<div class="scoreboard">
                 <div class="streak">
-                    Streak
                     <div class="${this.streakCorrect ? 'accent' : ''} fixed block streakScoreboard">
                         🔥 ${this.streakCorrect}
                     </div>
