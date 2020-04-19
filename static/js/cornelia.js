@@ -120,7 +120,8 @@ class App extends Component {
                 <p>
                     This project is <a href="https://github.com/thesephist/cornelia" target="_blank">open source</a>
                     and pulls from over 121 of Taylor Swift's singles, collaborations, and other chart-topping songs
-                    across her amazing songwriting history.
+                    across her amazing songwriting history. It's dedicated to my friend Van, who's the single
+                    biggest Swiftie I know, and somehow always knows more T-Swift lyrics than I manage to remember.
                 </p>
                 <p class="right-align">
                     a project by <a href="https://thesephist.com" target="_blank">linus</a>
