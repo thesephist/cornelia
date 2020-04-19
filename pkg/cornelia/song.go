@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 const dataDir = "./data"
@@ -56,6 +57,9 @@ chooser:
 }
 
 func mustLoadSongs() {
+	// seed RNG
+	rand.Seed(time.Now().UnixNano())
+
 	files, err := ioutil.ReadDir(dataDir)
 	if err != nil {
 		log.Fatal(err)
