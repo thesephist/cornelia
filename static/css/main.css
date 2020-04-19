@@ -106,3 +106,7 @@ p {
     text-align: center;
     width: 100%;
 }
+
+.startOverButton {
+    font-size: 1rem;
+}
