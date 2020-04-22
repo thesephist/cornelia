@@ -171,11 +171,11 @@ class App extends Component {
                 }
             }
             const noop = evt => null;
-            return jdom`<div class="${correct ? 'accent' : ''} choice block"
+            return jdom`<button class="${correct ? 'accent' : ''} choice block"
                 onclick="${this.showAnswer ? noop : clickHandler}">
                 ${correct ? '✅' : ''}
                 ${choiceTitle}
-            </div>`;
+            </button>`;
         }
 
         return jdom`<div class="state--playing">

@@ -88,6 +88,9 @@ p {
 }
 
 .choice {
+    display: block;
+    width: calc(100% - 12px); /* block shadows */
+    text-align: start;
     font-size: 1.2rem;
     line-height: 1.8em;
     margin-top: .8rem;
