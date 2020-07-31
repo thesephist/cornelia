@@ -119,7 +119,7 @@ class App extends Component {
                     }}">🎤 Start!</button>
                 <p>
                     This project is <a href="https://github.com/thesephist/cornelia" target="_blank">open source</a>
-                    and pulls from over 120 of Taylor Swift's singles, collaborations, and other chart-topping songs
+                    and pulls from over 130 of Taylor Swift's singles, collaborations, and other chart-topping songs
                     across her amazing songwriting history. It's dedicated to my friend Van, who's the single
                     biggest Swiftie I know, and somehow always knows more T-Swift lyrics than I manage to remember.
                 </p>
